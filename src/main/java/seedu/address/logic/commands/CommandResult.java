@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.person.Person;
 
 /**
  * Represents the result of a command execution.
@@ -19,6 +20,9 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    private boolean isView = false;
+    public Person viewPerson;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
@@ -26,6 +30,17 @@ public class CommandResult {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with the specified fields if command is a View Command
+     */
+    public CommandResult(String feedbackToUser, boolean isView, Person person) {
+        this.feedbackToUser = requireNonNull(feedbackToUser);
+        this.showHelp = false;
+        this.exit = false;
+        this.isView = isView;
+        this.viewPerson = person;
     }
 
     /**
@@ -48,6 +63,9 @@ public class CommandResult {
         return exit;
     }
 
+    public boolean isView() { return isView; }
+
+    public Person getPerson() { return viewPerson; }
     @Override
     public boolean equals(Object other) {
         if (other == this) {

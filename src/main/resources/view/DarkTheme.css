@@ -316,7 +316,7 @@
 }
 
 #resultDisplay .content {
-    -fx-background-color: transparent, #c0c0c0, transparent, #c0c0c0;
+    -fx-background-color: transparent, #c0c0c0, transparent, #ffffff;
     -fx-background-radius: 0;
 }
 
@@ -330,11 +330,11 @@
 }
 
 .job-label {
-    -fx-text-fill: black; /* Text color */
-    -fx-font-size: 11; /* Font size */
-    -fx-padding: 1 3; /* Padding around the text */
-    -fx-background-color: #90ee90; /* Background color of the label */
-    -fx-background-radius: 2; /* Rounded corners */
-    -fx-background-insets: 0; /* Remove insets if necessary */
+    -fx-text-fill: black;
+    -fx-font-size: 11;
+    -fx-padding: 1 3;
+    -fx-background-color: #90ee90;
+    -fx-background-radius: 2;
+    -fx-background-insets: 0;
 }
 

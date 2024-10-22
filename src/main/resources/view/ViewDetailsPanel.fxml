@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.ViewDetailsPanel">
+    <children>
+        <VBox spacing="10" padding="10">
+            <Label text="Person Details" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+            <Separator />
+
+            <HBox spacing="10">
+                <Label text="Name:" />
+                <Label fx:id="name" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Phone:" />
+                <Label fx:id="phone" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Email:" />
+                <Label fx:id="email" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Address:" />
+                <Label fx:id="address" />
+            </HBox>
+
+            <HBox spacing="10">
+                <Label text="Job Position:" />
+                <Label fx:id="job" />
+            </HBox>
+        </VBox>
+    </children>
+</AnchorPane>
