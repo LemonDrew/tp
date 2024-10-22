@@ -198,14 +198,9 @@ public class MainWindow extends UiPart<Stage> {
      * Shows the panel containing the person's details.
      */
     private void showDetails(Person person) {
+        viewDetailsPanelPlaceholder.getChildren().clear();
+        viewDetailsPanelPlaceholder.getChildren().add(new ViewDetailsPanel(person).getRoot());
         viewDetailsPanelPlaceholder.setVisible(true);
-        Node existingPanel = viewDetailsPanelPlaceholder.getChildren().isEmpty() ? null : viewDetailsPanelPlaceholder.getChildren().get(0);
-
-        ViewDetailsPanel newPanel = new ViewDetailsPanel(person);
-        if (existingPanel != null) {
-            viewDetailsPanelPlaceholder.getChildren().remove(existingPanel);
-        }
-        viewDetailsPanelPlaceholder.getChildren().add(newPanel.getRoot());
     }
 
     /**
