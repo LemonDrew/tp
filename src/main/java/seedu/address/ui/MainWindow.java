@@ -4,15 +4,11 @@ import java.util.logging.Logger;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
@@ -39,6 +35,8 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    private CommandDisplay commandDisplay;
     private ViewPersonPanel viewPersonPanel;
 
     @FXML
@@ -75,6 +73,7 @@ public class MainWindow extends UiPart<Stage> {
         setAccelerators();
 
         helpWindow = new HelpWindow();
+        commandDisplay = new CommandDisplay();
     }
 
     public Stage getPrimaryStage() {
@@ -161,30 +160,7 @@ public class MainWindow extends UiPart<Stage> {
 
     @FXML
     public void handleShowCommands() {
-        // Create a new stage for displaying commands
-        Stage commandWindow = new Stage();
-        commandWindow.setTitle("Available Commands");
-
-        // Create a TextArea to display commands
-        TextArea textArea = new TextArea();
-        textArea.setEditable(false); // Make it non-editable
-        textArea.setWrapText(true);  // Allow text to wrap
-
-        // Add commands to the text area
-        textArea.setText("1. Add Task\n" +
-                "2. Delete Task\n" +
-                "3. Mark Task as Done\n" +
-                "4. View Tasks\n" +
-                "5. Help\n" +
-                "6. Exit"); // Add more commands as needed
-
-        // Create a VBox to hold the TextArea
-        VBox vbox = new VBox(textArea);
-        Scene scene = new Scene(vbox, 300, 200); // Set desired width and height
-
-        // Set the scene to the command window
-        commandWindow.setScene(scene);
-        commandWindow.show(); // Show the command window
+        commandDisplay.showCommands();
     }
 
     void show() {
