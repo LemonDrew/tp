@@ -18,13 +18,12 @@ public class CommandDisplay {
             + "• Sort candidates in descending order based on interview scores\n"
             + "• View a candidate's status\n";
 
-    private Stage commandWindow; // Stage reference to the command window
+    private Stage commandWindow;
 
     /**
      * Displays the command window with a list of commands.
      */
     public void showCommands() {
-        // Check if the window is already open
         if (commandWindow == null || !commandWindow.isShowing()) {
             commandWindow = new Stage();
             commandWindow.setTitle("Available Commands");
@@ -47,7 +46,7 @@ public class CommandDisplay {
 
             commandWindow.show();
         } else {
-            commandWindow.requestFocus(); // Bring the window to the front if it's already open
+            commandWindow.requestFocus();
         }
     }
 
