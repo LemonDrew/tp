@@ -11,6 +11,10 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
@@ -18,9 +22,14 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.InterviewScore;
 import seedu.address.model.person.Job;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.skill.Skill;
+import seedu.address.model.tag.Tag;
 
 public class ViewStatusCommandTest {
     public final Name amyName = new Name(VALID_NAME_AMY);
@@ -82,6 +91,63 @@ public class ViewStatusCommandTest {
 
         assertCommandSuccess(viewStatusCommand, model, expectedMessage, expectedModel);
         //TODO: Mark hiredPerson or rejectedPerson before assertCommandSuccess.
+    }
+
+    @Test
+    public void execute_viewStatusWithMultipleTags_success() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        Person personWithMultipleTags = new Person(
+                new Name("Alice Pauline"),
+                new Job("Software Engineer"),
+                new Phone("85355255"),
+                new Email("alice@example.com"),
+                new HashSet<>(Set.of(new Skill("python"))),
+                new InterviewScore("6"),
+                new HashSet<>(Arrays.asList(new Tag("friends"), new Tag("colleagues")))
+        );
+        model.addPerson(personWithMultipleTags);
+
+        ViewStatusCommand viewStatusCommand = new ViewStatusCommand(
+                personWithMultipleTags.getName(), personWithMultipleTags.getJob());
+        String expectedMessage = String.format(ViewStatusCommand.MESSAGE_VIEW_SUCCESS,
+                Messages.formatStatus(personWithMultipleTags));
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
+        assertCommandSuccess(viewStatusCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_viewStatusWithDifferentJob_failure() {
+        Model model = new ModelManager(new AddressBook(), new UserPrefs());
+        Person personWithDifferentJob = new Person(
+                new Name("Alice Pauline"),
+                new Job("Data Analyst"),
+                new Phone("85355255"),
+                new Email("alice@example.com"),
+                new HashSet<>(Set.of(new Skill("python"))),
+                new InterviewScore("6"),
+                new HashSet<>(Arrays.asList(new Tag("friends")))
+        );
+        model.addPerson(personWithDifferentJob);
+
+        ViewStatusCommand viewStatusCommand = new ViewStatusCommand(
+                new Name("Alice Pauline"), new Job("Software Engineer"));
+        String expectedMessage = String.format(
+                ViewStatusCommand.MESSAGE_VIEW_FAILURE, new Name("Alice Pauline"), new Job("Software Engineer"));
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
+        assertCommandSuccess(viewStatusCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_viewStatusPersonNotFound_failure() {
+        ViewStatusCommand viewStatusCommand = new ViewStatusCommand(
+                new Name("Non Existent"), new Job("Software Engineer"));
+        String expectedMessage = String.format(ViewStatusCommand.MESSAGE_VIEW_FAILURE,
+                new Name("Non Existent"), new Job("Software Engineer"));
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
+        assertCommandSuccess(viewStatusCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
